@@ -30,7 +30,14 @@ class ExperienceCreator {
 }
 
 //Input Section
-function GeneralInformationForm({ setFullName, setEmail, setPhone }) {
+function GeneralInformationForm({
+  setFullName,
+  setEmail,
+  setPhone,
+  name,
+  email,
+  phone,
+}) {
   return (
     <>
       <form>
@@ -42,6 +49,7 @@ function GeneralInformationForm({ setFullName, setEmail, setPhone }) {
               type="text"
               id="fullName"
               onChange={(e) => setFullName(e.target.value)}
+              defaultValue={name}
             />
           </li>
           <li>
@@ -50,6 +58,7 @@ function GeneralInformationForm({ setFullName, setEmail, setPhone }) {
               type="email"
               id="email"
               onChange={(e) => setEmail(e.target.value)}
+              defaultValue={email}
             />
           </li>
           <li>
@@ -58,6 +67,7 @@ function GeneralInformationForm({ setFullName, setEmail, setPhone }) {
               type="tel"
               id="phone"
               onChange={(e) => setPhone(e.target.value)}
+              defaultValue={phone}
             />
           </li>
         </ul>
@@ -204,6 +214,7 @@ function ExperiencePreview({ experience, editExperience }) {
     <div key={exp.id}>
       <h2>{exp.position}</h2>
       <div>at {exp.company}</div>
+      <p>{exp.responsibilities}</p>
       <div>
         from : {exp.experienceStart} to: {exp.experienceEnd}
       </div>
@@ -238,6 +249,9 @@ function Input({
   setFullName,
   setEmail,
   setPhone,
+  name,
+  email,
+  phone,
   education,
   addEducation,
   editEducation,
@@ -251,6 +265,9 @@ function Input({
         setFullName={setFullName}
         setEmail={setEmail}
         setPhone={setPhone}
+        name={name}
+        email={email}
+        phone={phone}
       />
       <EducationForm addEducation={addEducation} />
       <EducationPreview education={education} editEducation={editEducation} />
@@ -273,7 +290,7 @@ function GeneralInformation({ fullName, email, phone }) {
     </>
   );
 }
-function CVContent({ education }) {
+function CVContent({ education, experience }) {
   const educationItems = education.map((edu) => (
     <>
       <h2>{edu.degree}</h2>
@@ -283,14 +300,29 @@ function CVContent({ education }) {
       </div>
     </>
   ));
-  return <>{educationItems}</>;
+  const experienceItems = experience.map((exp) => (
+    <>
+      <h2>{exp.position}</h2>
+      <div>at {exp.company}</div>
+      <p>{exp.responsibilities}</p>
+      <div>
+        from : {exp.experienceStart} to: {exp.experienceEnd}
+      </div>
+    </>
+  ));
+  return (
+    <>
+      {educationItems}
+      {experienceItems}
+    </>
+  );
 }
 
-function Output({ fullName, email, phone, education }) {
+function Output({ fullName, email, phone, education, experience }) {
   return (
     <>
       <GeneralInformation fullName={fullName} email={email} phone={phone} />
-      <CVContent education={education} />
+      <CVContent education={education} experience={experience} />
     </>
   );
 }
@@ -382,6 +414,9 @@ function App() {
         setFullName={setFullName}
         setEmail={setEmail}
         setPhone={setPhone}
+        name={fullName}
+        email={email}
+        phone={phone}
         education={education}
         addEducation={addEducation}
         editEducation={editEducation}
@@ -394,6 +429,7 @@ function App() {
         email={email}
         phone={phone}
         education={education}
+        experience={experience}
       />
     </>
   );
