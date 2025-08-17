@@ -30,9 +30,7 @@ class ExperienceCreator {
   }
 }
 
-//Output Section
-
-function App() {
+export default function App() {
   const [fullName, setFullName] = useState("Jhon Smith");
   const [email, setEmail] = useState("jhonsmith@example.com");
   const [phone, setPhone] = useState("1234567890");
@@ -56,7 +54,6 @@ function App() {
   const [experience, setExperience] = useState([exampleExperience]);
   function addEducation(e) {
     e.preventDefault();
-    console.log("hi mom");
     const prevElement = education[education.length - 1];
 
     const school = e.target.elements.school.value;
@@ -139,5 +136,3 @@ function App() {
     </>
   );
 }
-
-export default App;
