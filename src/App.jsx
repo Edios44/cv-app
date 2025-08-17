@@ -75,16 +75,10 @@ function GeneralInformationForm({
     </>
   );
 }
-function educationHandler(e, addEducation, setShowForm) {
-  return addEducation(e, setShowForm);
-}
-function EducationForm({ addEducation, showForm, id, setShowForm, edu }) {
+function EducationForm({ educationHandler, showForm, id, setShowForm, edu }) {
   return (
     <>
-      <form
-        onSubmit={(e) => educationHandler(e, addEducation, setShowForm)}
-        id={id}
-      >
+      <form onSubmit={(e) => educationHandler(e, setShowForm)} id={id}>
         <h1>Education</h1>
         <ul>
           <li>
@@ -142,7 +136,7 @@ function EducationPreview({ education, editEducation }) {
       </button>
       {showForm == edu.id && (
         <EducationForm
-          addEducation={editEducation}
+          educationHandler={editEducation}
           showForm={showForm}
           id={edu.id}
           setShowForm={setShowForm}
@@ -269,7 +263,7 @@ function Input({
         email={email}
         phone={phone}
       />
-      <EducationForm addEducation={addEducation} />
+      <EducationForm educationHandler={addEducation} />
       <EducationPreview education={education} editEducation={editEducation} />
       <ExperienceForm experienceHandler={addExperience} />
       <ExperiencePreview
