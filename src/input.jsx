@@ -12,7 +12,7 @@ function GeneralInformationForm({
   return (
     <>
       <form>
-        <h1>General Information</h1>
+        <h1 className="font-extrabold text-4xl">General Information</h1>
         <ul>
           <li>
             <label htmlFor="fullName">Full Name</label>
