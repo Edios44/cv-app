@@ -1,15 +1,11 @@
 import { useState } from "react";
+import { EducationContext } from "./App";
+import { useContext } from "react";
+import { use } from "react";
 
 //Input Section
-function GeneralInformationForm({
-  setFullName,
-  setEmail,
-  setPhone,
-  name,
-  email,
-  phone,
-  style,
-}) {
+function GeneralInformationForm({ style }) {
+  const values = useContext(EducationContext);
   return (
     <>
       <form>
@@ -22,8 +18,8 @@ function GeneralInformationForm({
             <input
               type="text"
               id="fullName"
-              onChange={(e) => setFullName(e.target.value)}
-              defaultValue={name}
+              onChange={(e) => values.setFullName(e.target.value)}
+              defaultValue={values.fullName}
               className={style.classInput}
             />
           </li>
@@ -34,8 +30,8 @@ function GeneralInformationForm({
             <input
               type="email"
               id="email"
-              onChange={(e) => setEmail(e.target.value)}
-              defaultValue={email}
+              onChange={(e) => values.setEmail(e.target.value)}
+              defaultValue={values.email}
               className={style.classInput}
             />
           </li>
@@ -46,8 +42,8 @@ function GeneralInformationForm({
             <input
               type="tel"
               id="phone"
-              onChange={(e) => setPhone(e.target.value)}
-              defaultValue={phone}
+              onChange={(e) => values.setPhone(e.target.value)}
+              defaultValue={values.phone}
               className={style.classInput}
             />
           </li>
@@ -112,38 +108,43 @@ function EducationForm({
             />
           </li>
         </ul>
-        <button type="submit" className={style.classBtn}>
-          {showForm == null ? "Add" : "Edit"}
-        </button>
+        <div className="flex justify-end">
+          <button type="submit" className={style.classBtn}>
+            {showForm == null ? "Add" : "Edit"}
+          </button>
+        </div>
       </form>
     </>
   );
 }
-function EducationPreview({ education, editEducation, style, style2nd }) {
+function EducationPreview({ style, style2nd }) {
   const [showForm, setShowForm] = useState(null);
-  const educationItems = education.map((edu) => (
+  const values = useContext(EducationContext);
+  const educationItems = values.education.map((edu) => (
     <div key={edu.id} className={style.classContainerSecondary}>
       <h2 className={style.classH3}>{edu.degree}</h2>
-      <div className="">
+      <div className="font-mono">
         <i>at {edu.school}</i>
       </div>
-      <div className="text-sm text-gray-500">
+      <div className="text-sm text-gray-500 flex justify-end">
         <i>
           from : {edu.educationStart} to: {edu.educationEnd}
         </i>
       </div>
-      <button
-        id={edu.id}
-        onClick={() =>
-          showForm != edu.id ? setShowForm(edu.id) : setShowForm(null)
-        }
-        className={style.classBtn}
-      >
-        Edit
-      </button>
+      <div className="flex justify-end">
+        <button
+          id={edu.id}
+          onClick={() =>
+            showForm != edu.id ? setShowForm(edu.id) : setShowForm(null)
+          }
+          className={style.classBtn}
+        >
+          Edit
+        </button>
+      </div>
       {showForm == edu.id && (
         <EducationForm
-          educationHandler={editEducation}
+          educationHandler={values.editEducation}
           showForm={showForm}
           id={edu.id}
           setShowForm={setShowForm}
@@ -225,39 +226,44 @@ function ExperienceForm({
             />
           </li>
         </ul>
-        <button type="submit" className={style.classBtn}>
-          {showForm == null ? "Add" : "Edit"}
-        </button>
+        <div className="flex justify-end">
+          <button type="submit" className={style.classBtn}>
+            {showForm == null ? "Add" : "Edit"}
+          </button>
+        </div>
       </form>
     </>
   );
 }
-function ExperiencePreview({ experience, editExperience, style, style2nd }) {
+function ExperiencePreview({ style, style2nd }) {
   const [showForm, setShowForm] = useState(null);
-  const experienceItems = experience.map((exp) => (
+  const values = useContext(EducationContext);
+  const experienceItems = values.experience.map((exp) => (
     <div key={exp.id} className={style.classContainerSecondary}>
       <h3 className={style.classH3}>{exp.position}</h3>
-      <div>
+      <div className="font-mono my-2">
         <i>at {exp.company}</i>
       </div>
-      <p>{exp.responsibilities}</p>
-      <div className="text-sm text-gray-500">
+      <p className="my-4 ml-2">{exp.responsibilities}</p>
+      <div className="text-sm text-gray-500 flex justify-end">
         <i>
           from : {exp.experienceStart} to: {exp.experienceEnd}
         </i>
       </div>
-      <button
-        id={exp.id}
-        onClick={() =>
-          showForm != exp.id ? setShowForm(exp.id) : setShowForm(null)
-        }
-        className={style.classBtn}
-      >
-        Edit
-      </button>
+      <div className="flex justify-end">
+        <button
+          id={exp.id}
+          onClick={() =>
+            showForm != exp.id ? setShowForm(exp.id) : setShowForm(null)
+          }
+          className={style.classBtn}
+        >
+          Edit
+        </button>
+      </div>
       {showForm == exp.id && (
         <ExperienceForm
-          experienceHandler={editExperience}
+          experienceHandler={values.editExperience}
           showForm={showForm}
           id={exp.id}
           setShowForm={setShowForm}
@@ -293,9 +299,9 @@ export default function Input({
     "m-4 border-1 border-gray-400 rounded-md p-3 shadow";
   const classContainerSecondary =
     "m-2 border-2 border-gray-600 rounded-md p-2 shadow";
-  const classH1 = "font-extrabold text-5xl mb-3";
-  const classH2 = "font-bold text-3xl mb-3";
-  const classH3 = "font-medium text-2xl mb-3";
+  const classH1 = "font-extrabold font-serif text-5xl mb-3";
+  const classH2 = "font-bold font-serif text-3xl mb-3";
+  const classH3 = "font-medium text-2xl mb-3 ";
   const classUL = "flex flex-col";
   const classLi = "m-2";
   const classLabel = "font-medium mx-2 w-30 inline-block";
@@ -319,19 +325,15 @@ export default function Input({
     classH3,
     classBtn,
   };
+  const values = useContext(EducationContext);
   return (
     <div className="m-8 max-w-2xl">
-      <GeneralInformationForm
-        setFullName={setFullName}
-        setEmail={setEmail}
-        setPhone={setPhone}
-        name={name}
-        email={email}
-        phone={phone}
-        style={style_input}
-      />
+      <GeneralInformationForm style={style_input} />
       <div className="my-8">
-        <EducationForm educationHandler={addEducation} style={style_input} />
+        <EducationForm
+          educationHandler={values.addEducation}
+          style={style_input}
+        />
         <EducationPreview
           education={education}
           editEducation={editEducation}

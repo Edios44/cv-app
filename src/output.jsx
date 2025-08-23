@@ -1,14 +1,21 @@
-function GeneralInformation({ fullName, email, phone }) {
+import { EducationContext } from "./App";
+import { useContext } from "react";
+
+function GeneralInformation() {
+  const values = useContext(EducationContext);
   return (
     <>
-      <h1>{fullName}</h1>
-      <div>{email}</div>
-      <div>{phone}</div>
+      <h1>{values.fullName}</h1>
+      <div>{values.email}</div>
+      <div>{values.phone}</div>
     </>
   );
 }
-function CVContent({ education, experience }) {
-  const educationItems = education.map((edu) => (
+
+function CVContent() {
+  const values = useContext(EducationContext);
+
+  const educationItems = values.education.map((edu) => (
     <div key={edu.id}>
       <h2>{edu.degree}</h2>
       <div>at {edu.school}</div>
@@ -17,7 +24,7 @@ function CVContent({ education, experience }) {
       </div>
     </div>
   ));
-  const experienceItems = experience.map((exp) => (
+  const experienceItems = values.experience.map((exp) => (
     <div key={exp.id}>
       <h2>{exp.position}</h2>
       <div>at {exp.company}</div>
@@ -35,17 +42,11 @@ function CVContent({ education, experience }) {
   );
 }
 
-export default function Output({
-  fullName,
-  email,
-  phone,
-  education,
-  experience,
-}) {
+export default function Output() {
   return (
     <>
-      <GeneralInformation fullName={fullName} email={email} phone={phone} />
-      <CVContent education={education} experience={experience} />
+      <GeneralInformation />
+      <CVContent />
     </>
   );
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import Input from "./input";
 import Output from "./output";
@@ -30,6 +31,7 @@ class ExperienceCreator {
   }
 }
 
+export const EducationContext = React.createContext();
 export default function App() {
   const [fullName, setFullName] = useState("Jhon Smith");
   const [email, setEmail] = useState("jhonsmith@example.com");
@@ -37,7 +39,7 @@ export default function App() {
 
   const exampleSchool = new EducationCreator(
     "Oxford University",
-    "chemistry",
+    "Chemistry",
     "2010-10-10",
     "2015-10-10",
     1000,
@@ -92,47 +94,50 @@ export default function App() {
   }
   function editEducation(e, setShowForm) {
     e.preventDefault();
-    const editedItem = education.find((edu) => edu.id == e.target.id);
-    editedItem.school = e.target.elements.school.value;
-    editedItem.degree = e.target.elements.degree.value;
-    editedItem.educationStart = e.target.elements.educationStart.value;
-    editedItem.educationEnd = e.target.elements.educationEnd.value;
+    const editedItem = education.findIndex((edu) => edu.id == e.target.id);
+    const clone = [...education];
+    clone[editedItem].school = e.target.elements.school.value;
+    clone[editedItem].degree = e.target.elements.degree.value;
+    clone[editedItem].educationStart = e.target.elements.educationStart.value;
+    clone[editedItem].educationEnd = e.target.elements.educationEnd.value;
+    setEducation(clone);
     setShowForm(null);
   }
   function editExperience(e, setShowForm) {
     e.preventDefault();
-    const editedItem = experience.find((exp) => exp.id == e.target.id);
-    editedItem.company = e.target.elements.company.value;
-    editedItem.position = e.target.elements.position.value;
-    editedItem.responsibilities = e.target.elements.responsibilities.value;
-    editedItem.experienceStart = e.target.elements.experienceStart.value;
-    editedItem.experienceEnd = e.target.elements.experienceEnd.value;
+    const editedItem = experience.findIndex((exp) => exp.id == e.target.id);
+    const clone = [...experience];
+    clone[editedItem].company = e.target.elements.company.value;
+    clone[editedItem].position = e.target.elements.position.value;
+    clone[editedItem].responsibilities =
+      e.target.elements.responsibilities.value;
+    clone[editedItem].experienceStart = e.target.elements.experienceStart.value;
+    clone[editedItem].experienceEnd = e.target.elements.experienceEnd.value;
+    setExperience(clone);
     setShowForm(null);
   }
 
   return (
     <>
-      <Input
-        setFullName={setFullName}
-        setEmail={setEmail}
-        setPhone={setPhone}
-        name={fullName}
-        email={email}
-        phone={phone}
-        education={education}
-        addEducation={addEducation}
-        editEducation={editEducation}
-        experience={experience}
-        addExperience={addExperience}
-        editExperience={editExperience}
-      />
-      <Output
-        fullName={fullName}
-        email={email}
-        phone={phone}
-        education={education}
-        experience={experience}
-      />
+      <EducationContext.Provider
+        value={{
+          setFullName,
+          setEmail,
+          setPhone,
+          fullName,
+          email,
+          phone,
+          education,
+          addEducation,
+          editEducation,
+          experience,
+          addExperience,
+          editExperience,
+        }}
+      >
+        <Input />
+        <Output />
+      </EducationContext.Provider>
     </>
   );
 }
