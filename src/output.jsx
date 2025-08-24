@@ -44,9 +44,9 @@ function CVContent() {
 
 export default function Output() {
   return (
-    <>
+    <div>
       <GeneralInformation />
       <CVContent />
-    </>
+    </div>
   );
 }

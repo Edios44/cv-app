@@ -118,7 +118,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <div className="flex gap-4">
       <EducationContext.Provider
         value={{
           setFullName,
@@ -135,9 +135,9 @@ export default function App() {
           editExperience,
         }}
       >
-        <Input />
+        <Input className="bg-red-500" />
         <Output />
       </EducationContext.Provider>
-    </>
+    </div>
   );
 }
