@@ -91,10 +91,8 @@ function EducationPreview() {
   const values = useContext(EducationContext);
   const educationItems = values.education.map((edu) => (
     <div key={edu.id}>
-      <h2>{edu.degree}</h2>
-      <div>
-        <i>at {edu.school}</i>
-      </div>
+      <h3>{edu.degree}</h3>
+      <div>at {edu.school}</div>
       <div>
         <i>
           from : {edu.educationStart} to: {edu.educationEnd}
@@ -188,9 +186,7 @@ function ExperiencePreview() {
   const experienceItems = values.experience.map((exp) => (
     <div key={exp.id}>
       <h3>{exp.position}</h3>
-      <div>
-        <i>at {exp.company}</i>
-      </div>
+      <div>at {exp.company}</div>
       <p>{exp.responsibilities}</p>
       <div>
         <i>
