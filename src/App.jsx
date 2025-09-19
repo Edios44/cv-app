@@ -52,74 +52,10 @@ export default function App() {
     "2015-10-10",
     5000,
   );
-  const [education, setEducation] = useState([exampleSchool]);
-  const [experience, setExperience] = useState([exampleExperience]);
-  function addEducation(e) {
-    e.preventDefault();
-    const prevElement = education[education.length - 1];
-
-    const school = e.target.elements.school.value;
-    const degree = e.target.elements.degree.value;
-    const educationStart = e.target.elements.educationStart.value;
-    const educationEnd = e.target.elements.educationEnd.value;
-    const id = prevElement.id + 1;
-
-    setEducation([
-      ...education,
-      new EducationCreator(school, degree, educationStart, educationEnd, id),
-    ]);
-  }
-  function addExperience(e) {
-    e.preventDefault();
-    const prevElement = experience[experience.length - 1];
-
-    const company = e.target.elements.company.value;
-    const position = e.target.elements.position.value;
-    const responsibilities = e.target.elements.responsibilities.value;
-    const experienceStart = e.target.elements.experienceStart.value;
-    const experienceEnd = e.target.elements.experienceEnd.value;
-    const id = prevElement.id + 1;
-
-    setExperience([
-      ...experience,
-      new ExperienceCreator(
-        company,
-        position,
-        responsibilities,
-        experienceStart,
-        experienceEnd,
-        id,
-      ),
-    ]);
-  }
-  function editEducation(e, setShowForm) {
-    e.preventDefault();
-    const editedItem = education.findIndex((edu) => edu.id == e.target.id);
-    const clone = [...education];
-    clone[editedItem].school = e.target.elements.school.value;
-    clone[editedItem].degree = e.target.elements.degree.value;
-    clone[editedItem].educationStart = e.target.elements.educationStart.value;
-    clone[editedItem].educationEnd = e.target.elements.educationEnd.value;
-    setEducation(clone);
-    setShowForm(null);
-  }
-  function editExperience(e, setShowForm) {
-    e.preventDefault();
-    const editedItem = experience.findIndex((exp) => exp.id == e.target.id);
-    const clone = [...experience];
-    clone[editedItem].company = e.target.elements.company.value;
-    clone[editedItem].position = e.target.elements.position.value;
-    clone[editedItem].responsibilities =
-      e.target.elements.responsibilities.value;
-    clone[editedItem].experienceStart = e.target.elements.experienceStart.value;
-    clone[editedItem].experienceEnd = e.target.elements.experienceEnd.value;
-    setExperience(clone);
-    setShowForm(null);
-  }
 
   return (
-    <div className="flex gap-4 md:flex-col lg:flex-row">
-      <EducationContext.Provider
+    <div>
+      {/* <EducationContext.Provider
         value={{
           setFullName,
           setEmail,
@@ -127,17 +63,10 @@ export default function App() {
           fullName,
           email,
           phone,
-          education,
-          addEducation,
-          editEducation,
-          experience,
-          addExperience,
-          editExperience,
         }}
-      >
-        <Input />
-        <Output />
-      </EducationContext.Provider>
+      >*/}
+      <Input />
+      {/* </EducationContext.Provider>*/}
     </div>
   );
 }
