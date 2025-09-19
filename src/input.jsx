@@ -90,16 +90,20 @@ function EducationPreview() {
   const [showForm, setShowForm] = useState(null);
   const values = useContext(EducationContext);
   const educationItems = values.education.map((edu) => (
-    <div key={edu.id}>
-      <h3>{edu.degree}</h3>
-      <div>at {edu.school}</div>
-      <div>
-        <i>
-          from : {edu.educationStart} to: {edu.educationEnd}
-        </i>
-      </div>
-      <div>
+    <div className="ml-5 flex gap-2" key={edu.id}>
+      <div className="bg-gray-400 w-1.5 h-30 rounded-2xl"></div>
+      <div className="flex gap-10">
+        <div>
+          <h3>{edu.degree}</h3>
+          <div>at {edu.school}</div>
+          <div>
+            <i>
+              from : {edu.educationStart} to: {edu.educationEnd}
+            </i>
+          </div>
+        </div>
         <button
+          className="h-8"
           id={edu.id}
           onClick={() =>
             showForm != edu.id ? setShowForm(edu.id) : setShowForm(null)
@@ -225,7 +229,7 @@ function ExperiencePreview() {
 export default function Input() {
   const values = useContext(EducationContext);
   return (
-    <div className="dark:bg-black dark:text-white">
+    <div className="p-2">
       <GeneralInformationForm />
       <div>
         <EducationForm educationHandler={values.addEducation} />
