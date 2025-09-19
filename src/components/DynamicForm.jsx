@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormInput from "./FormInput";
 
 export default function DynamicForm({
